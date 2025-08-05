@@ -6,6 +6,7 @@ const useDragAndDrop = () => {
   const [scriptBlocks, setScriptBlocks] = useState([]);
 
   const handleDragStart = (e, block, type) => {
+    e.stopPropagation()
     setDragTarget(block);
     setDragType(type);
     e.dataTransfer.setData('text/html', e.target.outerHTML);
@@ -47,7 +48,7 @@ const useDragAndDrop = () => {
       }
     } else if (dragType === 'script') {
       const draggedBlock = findBlock(newScriptBlocks, dragTarget.id);
-      if (draggedBlock) {
+      if (draggedBlock && (!dropTarget || draggedBlock.id !== dropTarget.id)) {
         // Remove the block from its original position
         const containingArray = findContainingArray(newScriptBlocks, dragTarget.id);
         const index = containingArray.findIndex(b => b.id === dragTarget.id);
@@ -64,6 +65,8 @@ const useDragAndDrop = () => {
             const index = containingArray.findIndex(b => b.id === dropTarget.id);
             containingArray.splice(index + 1, 0, draggedBlock);
           }
+        } else if (dropZoneType === 'menu') {
+          // Block is deleted
         }
       }
     }

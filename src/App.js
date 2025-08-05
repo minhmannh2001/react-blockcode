@@ -16,7 +16,11 @@ function App() {
   return (
     <div className="App">
       <h1>Block Code</h1>
-      <Menu onDragStart={handleDragStart} />
+      <Menu
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      />
       <Script
         blocks={scriptBlocks}
         onDragStart={handleDragStart}

@@ -19,7 +19,7 @@ const Script = ({ blocks, onDragStart, onDragOver, onDrop }) => {
           <Block
             key={block.id}
             block={block}
-            onDragStart={(e) => onDragStart(e, block, 'script')}
+            onDragStart={(e, dragTarget) => onDragStart(e, dragTarget ? dragTarget : block, 'script')}
             onDragOver={onDragOver}
             onDrop={onDrop}
           />
