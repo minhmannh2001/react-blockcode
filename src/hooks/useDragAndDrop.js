@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import matches from '../utils/matches';
 
 const useDragAndDrop = () => {
   const [dragTarget, setDragTarget] = useState(null);
@@ -138,6 +137,8 @@ const useDragAndDrop = () => {
     if (overElem) overElem.classList.remove('over');
   };
 
+  const clearScript = () => setScriptBlocks([]);
+
   return {
     dragTarget,
     dragType,
@@ -149,6 +150,7 @@ const useDragAndDrop = () => {
     handleDragOver,
     handleDrop,
     handleDragEnd,
+    clearScript,
   };
 };
 

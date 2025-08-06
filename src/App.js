@@ -14,6 +14,7 @@ function App() {
     handleDragOver,
     handleDrop,
     handleDragEnd,
+    clearScript,
   } = useDragAndDrop();
 
   return (
@@ -35,6 +36,7 @@ function App() {
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         onDragEnd={handleDragEnd}
+        onClear={clearScript}
       />
       <Canvas blocks={scriptBlocks} />
     </div>

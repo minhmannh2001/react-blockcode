@@ -1,7 +1,7 @@
 import React from 'react';
 import Block from './Block';
 
-const Script = ({ blocks, onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onDragEnd }) => {
+const Script = ({ blocks, onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onDragEnd, onClear }) => {
   return (
     <div
       className="script-column"
@@ -13,7 +13,7 @@ const Script = ({ blocks, onDragStart, onDragEnter, onDragLeave, onDragOver, onD
     >
       <h2>
         Script:
-        <button className="clear-action">Clear</button>
+        <button className="clear-action" onClick={onClear}>Clear</button>
         <button className="save-action">Save</button>
         <button className="load-action">Load</button>
       </h2>
