@@ -40,8 +40,20 @@ class Turtle {
     }
   }
 
+  back(distance) {
+    this.forward(-distance)
+  }
+
   turn(degrees) {
     this.direction += this.deg2rad(degrees);
+  }
+
+  left(degrees) {
+    this.turn(degrees)
+  }
+
+  right(degrees) {
+    this.turn(-degrees)
   }
 
   penUp() {
@@ -50,6 +62,35 @@ class Turtle {
 
   penDown() {
     this.pen = true;
+  }
+
+  hideTurtle() {
+    this.visible = false;
+  }
+
+  showTurtle() {
+    this.visible = true;
+  }
+
+  drawTurtle() {
+    const userPen = this.pen; // save pen state
+    if (this.visible) {
+      this.penUp();
+      this.forward(5);
+      this.penDown();
+      this.turn(-150);
+      this.forward(12);
+      this.turn(-120);
+      this.forward(12);
+      this.turn(-120);
+      this.forward(12);
+      this.turn(30);
+      this.penUp();
+      this.forward(-5);
+      if (userPen) {
+        this.penDown(); // restore pen state
+      }
+    }
   }
 
   clear() {

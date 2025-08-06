@@ -25,13 +25,31 @@ const Canvas = ({ blocks }) => {
         case 'forward':
           turtle.forward(block.value);
           break;
-        case 'turn':
-          turtle.turn(block.value);
+        case 'back':
+          turtle.back(block.value);
+          break;
+        case 'left':
+          turtle.left(block.value);
+          break;
+        case 'right':
+          turtle.right(block.value);
           break;
         case 'repeat':
           for (let i = 0; i < block.value; i++) {
             runBlocks(block.contents);
           }
+          break;
+        case 'penUp':
+          turtle.penUp();
+          break;
+        case 'penDown':
+          turtle.penDown();
+          break;
+        case 'hideTurtle':
+          turtle.hideTurtle();
+          break;
+        case 'showTurtle':
+          turtle.showTurtle();
           break;
         default:
           break;
