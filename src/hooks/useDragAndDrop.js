@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import matches from '../utils/matches';
 
 const useDragAndDrop = () => {
   const [dragTarget, setDragTarget] = useState(null);
@@ -17,8 +18,31 @@ const useDragAndDrop = () => {
     }
   };
 
+  const handleDragEnter = (e) => {
+    // Always add 'over' to the closest menu/script/content container
+    const container = e.target.closest('.menu, .script, .content');
+    if (container) {
+      container.classList.add('over');
+      if (e.preventDefault) { e.preventDefault(); }
+    }
+  };
+
+  const handleDragLeave = (e) => {
+    // Only remove 'over' if leaving the container entirely
+    const container = e.target.closest('.menu, .script, .content');
+    const related = e.relatedTarget;
+    if (container && (!related || !container.contains(related))) {
+      container.classList.remove('over');
+    }
+  };
+
   const handleDragOver = (e) => {
     e.preventDefault();
+    if (dragType === 'menu') {
+      e.dataTransfer.dropEffect = 'copy';  // See the section on the DataTransfer object.
+    } else {
+      e.dataTransfer.dropEffect = 'move';
+    }
   };
 
   const handleDrop = (e, dropZoneType, dropTarget) => {
@@ -106,14 +130,25 @@ const useDragAndDrop = () => {
     return null;
   };
 
+  const handleDragEnd = (e) => {
+    // Remove 'dragging' and 'over' classes from any elements that have them
+    const draggingElem = document.querySelector('.dragging');
+    if (draggingElem) draggingElem.classList.remove('dragging');
+    const overElem = document.querySelector('.over');
+    if (overElem) overElem.classList.remove('over');
+  };
+
   return {
     dragTarget,
     dragType,
     scriptBlocks,
     setScriptBlocks,
     handleDragStart,
+    handleDragEnter,
+    handleDragLeave,
     handleDragOver,
     handleDrop,
+    handleDragEnd,
   };
 };
 

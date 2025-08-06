@@ -9,8 +9,11 @@ function App() {
   const {
     scriptBlocks,
     handleDragStart,
+    handleDragEnter,
+    handleDragLeave,
     handleDragOver,
     handleDrop,
+    handleDragEnd,
   } = useDragAndDrop();
 
   return (
@@ -18,14 +21,20 @@ function App() {
       <h1>Block Code</h1>
       <Menu
         onDragStart={handleDragStart}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
+        onDragEnd={handleDragEnd}
       />
       <Script
         blocks={scriptBlocks}
         onDragStart={handleDragStart}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
+        onDragEnd={handleDragEnd}
       />
       <Canvas blocks={scriptBlocks} />
     </div>

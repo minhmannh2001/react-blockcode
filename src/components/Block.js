@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Block = ({ block, onDragStart, onDragOver, onDrop }) => {
+const Block = ({ block, onDragStart, onDragEnter, onDragOver, onDrop }) => {
   const handleDrop = (e) => {
     e.stopPropagation();
     onDrop(e, 'block', block);
@@ -11,6 +11,7 @@ const Block = ({ block, onDragStart, onDragOver, onDrop }) => {
       className="block"
       draggable="true"
       onDragStart={onDragStart}
+      onDragEnter={onDragEnter}
       onDragOver={onDragOver}
       onDrop={handleDrop}
     >
@@ -26,6 +27,7 @@ const Block = ({ block, onDragStart, onDragOver, onDrop }) => {
               onDragStart={(e) => {
                 onDragStart(e, childBlock);
               }}
+              onDragEnter={onDragEnter}
               onDragOver={onDragOver}
               onDrop={onDrop}
             />
