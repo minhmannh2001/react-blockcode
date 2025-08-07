@@ -5,17 +5,22 @@ import { scriptToJson, jsonToScript } from '../utils/file';
 const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onDragEnd, onClear }) => {
 
   const handleSave = (blocks) => {
-    const json = scriptToJson(blocks);
-    if (json) {
-      const blob = new Blob([json], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'blockcode.json';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+    try {
+      const json = scriptToJson(blocks);
+      if (json) {
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'blockcode.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.error("Error saving file:", error);
+      alert("Failed to save file.");
     }
   };
 
@@ -32,13 +37,19 @@ const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDr
             jsonToScript(e.target.result, setBlocks);
           } catch (error) {
             console.error("Error loading file:", error);
-            alert("Failed to load file.");
+            alert(`Failed to load file: ${error.message}`);
           }
         };
         reader.readAsText(file);
       }
+      document.body.removeChild(input);
     };
+    document.body.appendChild(input);
     input.click();
+
+    input.addEventListener('cancel', () => {
+      document.body.removeChild(input);
+    });
   };
 
   return (
@@ -53,7 +64,7 @@ const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDr
       <h2>
         Script:
         <button className="clear-action" onClick={onClear}>Clear</button>
-        <button className="save-action" onClick={() => handleSave(blocks)}>Save</button>
+        <button className="save-action" onClick={() => handleSave(blocks)} disabled={!blocks || blocks.length === 0}>Save</button>
         <button className="load-action" onClick={handleLoad}>Load</button>
       </h2>
       <div className="script">
