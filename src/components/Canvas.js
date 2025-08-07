@@ -66,6 +66,7 @@ const Canvas = ({ blocks }) => {
       canvas.style.left = `${rect.left}px`;
       turtle.clear();
       runBlocks(blocks);
+      turtle.drawTurtle()
     };
 
     window.addEventListener('resize', onResize);
@@ -80,6 +81,7 @@ const Canvas = ({ blocks }) => {
     const turtle = turtleRef.current;
     turtle.clear();
     runBlocks(blocks);
+    turtle.drawTurtle()
   };
 
   return (
