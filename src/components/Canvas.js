@@ -1,9 +1,53 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import Turtle from '../turtle';
 
 const Canvas = ({ blocks }) => {
   const canvasRef = useRef(null);
   const turtleRef = useRef(null);
+
+  const runBlocks = useCallback((blocksToRun) => {
+    const turtle = turtleRef.current;
+
+    const execute = (blocks) => {
+      blocks.forEach(block => {
+        switch (block.name) {
+          case 'forward':
+            turtle.forward(block.value);
+            break;
+          case 'back':
+            turtle.back(block.value);
+            break;
+          case 'left':
+            turtle.left(block.value);
+            break;
+          case 'right':
+            turtle.right(block.value);
+            break;
+          case 'repeat':
+            for (let i = 0; i < block.value; i++) {
+              execute(block.contents);
+            }
+            break;
+          case 'penUp':
+            turtle.penUp();
+            break;
+          case 'penDown':
+            turtle.penDown();
+            break;
+          case 'hideTurtle':
+            turtle.hideTurtle();
+            break;
+          case 'showTurtle':
+            turtle.showTurtle();
+            break;
+          default:
+            break;
+        }
+      });
+    }
+
+    execute(blocksToRun);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -20,6 +64,8 @@ const Canvas = ({ blocks }) => {
       canvas.style.height = `${rect.height}px`;
       canvas.style.top = `${rect.top}px`;
       canvas.style.left = `${rect.left}px`;
+      turtle.clear();
+      runBlocks(blocks);
     };
 
     window.addEventListener('resize', onResize);
@@ -28,52 +74,13 @@ const Canvas = ({ blocks }) => {
     return () => {
       window.removeEventListener('resize', onResize);
     };
-  }, []);
+  }, [blocks, runBlocks]);
 
   const handleRun = () => {
     const turtle = turtleRef.current;
     turtle.clear();
     runBlocks(blocks);
   };
-
-  const runBlocks = (blocksToRun) => {
-    const turtle = turtleRef.current;
-    blocksToRun.forEach(block => {
-      switch (block.name) {
-        case 'forward':
-          turtle.forward(block.value);
-          break;
-        case 'back':
-          turtle.back(block.value);
-          break;
-        case 'left':
-          turtle.left(block.value);
-          break;
-        case 'right':
-          turtle.right(block.value);
-          break;
-        case 'repeat':
-          for (let i = 0; i < block.value; i++) {
-            runBlocks(block.contents);
-          }
-          break;
-        case 'penUp':
-          turtle.penUp();
-          break;
-        case 'penDown':
-          turtle.penDown();
-          break;
-        case 'hideTurtle':
-          turtle.hideTurtle();
-          break;
-        case 'showTurtle':
-          turtle.showTurtle();
-          break;
-        default:
-          break;
-      }
-    });
-  }
 
   return (
     <div className="canvas-column">
