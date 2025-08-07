@@ -8,6 +8,7 @@ import useDragAndDrop from './hooks/useDragAndDrop';
 function App() {
   const {
     scriptBlocks,
+    setScriptBlocks,
     handleDragStart,
     handleDragEnter,
     handleDragLeave,
@@ -30,6 +31,7 @@ function App() {
       />
       <Script
         blocks={scriptBlocks}
+        setBlocks={setScriptBlocks}
         onDragStart={handleDragStart}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
