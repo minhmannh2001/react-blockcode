@@ -7,8 +7,10 @@ import { scriptToJson, jsonToScript } from '../utils/file';
 
 const ScriptContainer = styled(Paper)(({ theme, isDragOver }) => ({
   height: '100%',
-  backgroundColor: isDragOver ? alpha(theme.palette.secondary.main, 0.1) : '#e3f2fd',
-  border: `2px solid ${theme.palette.secondary.main}`,
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: isDragOver ? alpha(theme.palette.primary.main, 0.1) : '#f8f9fa',
+  border: `2px solid ${theme.palette.primary.main}`,
   borderRadius: theme.shape.borderRadius,
   transition: 'background-color 0.2s ease',
 }));
@@ -19,12 +21,17 @@ const ScriptHeader = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   padding: theme.spacing(2),
   borderBottom: `1px solid ${theme.palette.divider}`,
+  minHeight: '64px',
+  gap: theme.spacing(3),
 }));
 
 const ScriptContent = styled(Box)(({ theme }) => ({
-  height: 'calc(100% - 80px)',
+  flex: 1,
   overflowY: 'auto',
   padding: theme.spacing(1),
+  minHeight: '200px',
+  display: 'flex',
+  flexDirection: 'column',
   '&::-webkit-scrollbar': {
     width: '8px',
   },
@@ -33,9 +40,20 @@ const ScriptContent = styled(Box)(({ theme }) => ({
     borderRadius: '4px',
   },
   '&::-webkit-scrollbar-thumb': {
-    background: theme.palette.secondary.main,
+    background: theme.palette.primary.main,
     borderRadius: '4px',
   },
+}));
+
+const EmptyScriptMessage = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  color: theme.palette.text.secondary,
+  fontStyle: 'italic',
+  textAlign: 'center',
+  padding: theme.spacing(2),
 }));
 
 const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onDragEnd, onClear }) => {
@@ -155,17 +173,25 @@ const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDr
           </ButtonGroup>
         </ScriptHeader>
         <ScriptContent>
-          {blocks.map((block) => (
-            <Block
-              key={block.id}
-              block={block}
-              onDragStart={(e, dragTarget) => onDragStart(e, dragTarget ? dragTarget : block, 'script')}
-              onDragEnter={onDragEnter}
-              onDragOver={onDragOver}
-              onDrop={onDrop}
-              variant="script"
-            />
-          ))}
+          {blocks && blocks.length > 0 ? (
+            blocks.map((block) => (
+              <Block
+                key={block.id}
+                block={block}
+                onDragStart={(e, dragTarget) => onDragStart(e, dragTarget ? dragTarget : block, 'script')}
+                onDragEnter={onDragEnter}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+                variant="script"
+              />
+            ))
+          ) : (
+            <EmptyScriptMessage>
+              <Typography variant="body2">
+                Drag blocks here to build your script
+              </Typography>
+            </EmptyScriptMessage>
+          )}
         </ScriptContent>
       </ScriptContainer>
 

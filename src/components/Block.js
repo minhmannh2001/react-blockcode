@@ -11,7 +11,7 @@ const BlockContainer = styled(Paper)(({ theme, variant, isDragging, isRunning, i
     backgroundColor = '#ff7043'; // Orange for menu blocks
   } else if (variant === 'script') {
     backgroundColor = '#42a5f5'; // Blue for script blocks
-    borderColor = theme.palette.secondary.main;
+    borderColor = theme.palette.primary.main; // Use primary color instead of secondary
   }
 
   return {
