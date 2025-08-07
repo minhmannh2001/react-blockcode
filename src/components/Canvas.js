@@ -113,6 +113,13 @@ const Canvas = ({ blocks, setBlocks }) => {
     };
   }, [blocks, runBlocks]);
 
+  // Reset selected example when blocks array becomes empty
+  useEffect(() => {
+    if (!blocks || blocks.length === 0) {
+      setSelectedExample('');
+    }
+  }, [blocks]);
+
   const handleRun = () => {
     const turtle = turtleRef.current;
     turtle.clear();
