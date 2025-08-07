@@ -7,9 +7,27 @@ const Canvas = ({ blocks }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    const canvasPlaceholder = document.querySelector('.canvas-placeholder');
     const turtle = new Turtle(canvas);
     turtleRef.current = turtle;
-    turtle.clear();
+
+    const onResize = () => {
+      const PIXEL_RATIO = window.devicePixelRatio || 1;
+      const rect = canvasPlaceholder.getBoundingClientRect();
+      canvas.width = rect.width * PIXEL_RATIO;
+      canvas.height = rect.height * PIXEL_RATIO;
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+      canvas.style.top = `${rect.top}px`;
+      canvas.style.left = `${rect.left}px`;
+    };
+
+    window.addEventListener('resize', onResize);
+    onResize();
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
   }, []);
 
   const handleRun = () => {
