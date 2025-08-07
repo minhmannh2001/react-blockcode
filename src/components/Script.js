@@ -6,17 +6,20 @@ const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDr
 
   const handleSave = (blocks) => {
     try {
-      const json = scriptToJson(blocks);
-      if (json) {
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'blockcode.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+      const fileName = prompt("Enter file name:", "blockcode.json");
+      if (fileName) {
+        const json = scriptToJson(blocks);
+        if (json) {
+          const blob = new Blob([json], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
       }
     } catch (error) {
       console.error("Error saving file:", error);

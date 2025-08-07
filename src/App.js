@@ -40,7 +40,7 @@ function App() {
         onDragEnd={handleDragEnd}
         onClear={clearScript}
       />
-      <Canvas blocks={scriptBlocks} />
+      <Canvas blocks={scriptBlocks} setBlocks={setScriptBlocks} />
     </div>
   );
 }
