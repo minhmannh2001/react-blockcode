@@ -28,17 +28,20 @@ const Canvas = ({ blocks }) => {
               execute(block.contents);
             }
             break;
-          case 'penUp':
+          case 'pen up':
             turtle.penUp();
             break;
-          case 'penDown':
+          case 'pen down':
             turtle.penDown();
             break;
-          case 'hideTurtle':
+          case 'hide turtle':
             turtle.hideTurtle();
             break;
-          case 'showTurtle':
+          case 'show turtle':
             turtle.showTurtle();
+            break;
+          case 'back to center':
+            turtle.recenter()
             break;
           default:
             break;
