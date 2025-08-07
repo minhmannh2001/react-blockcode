@@ -1,9 +1,43 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
+import { Paper, Typography, Box, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { PlayArrow } from '@mui/icons-material';
 import Turtle from '../turtle';
+
+const CanvasContainer = styled(Paper)(({ theme }) => ({
+  height: '100%',
+  backgroundColor: '#ffffff',
+  border: `2px solid ${theme.palette.success.main}`,
+  borderRadius: theme.shape.borderRadius,
+  display: 'flex',
+  flexDirection: 'column',
+}));
+
+const CanvasHeader = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: theme.spacing(2),
+  borderBottom: `1px solid ${theme.palette.divider}`,
+  gap: theme.spacing(2),
+}));
+
+const CanvasPlaceholder = styled(Box)({
+  flexGrow: 1,
+  position: 'relative',
+  overflow: 'hidden',
+});
+
+const StyledCanvas = styled('canvas')({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+});
 
 const Canvas = ({ blocks, setBlocks }) => {
   const canvasRef = useRef(null);
   const turtleRef = useRef(null);
+  const canvasPlaceholderRef = useRef(null);
   const [selectedExample, setSelectedExample] = useState('');
 
   const runBlocks = useCallback((blocksToRun) => {
@@ -55,7 +89,7 @@ const Canvas = ({ blocks, setBlocks }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const canvasPlaceholder = document.querySelector('.canvas-placeholder');
+    const canvasPlaceholder = canvasPlaceholderRef.current;
     const turtle = new Turtle(canvas);
     turtleRef.current = turtle;
 
@@ -66,8 +100,6 @@ const Canvas = ({ blocks, setBlocks }) => {
       canvas.height = rect.height * PIXEL_RATIO;
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
-      canvas.style.top = `${rect.top}px`;
-      canvas.style.left = `${rect.left}px`;
       turtle.clear();
       runBlocks(blocks);
       turtle.drawTurtle()
@@ -144,20 +176,48 @@ const Canvas = ({ blocks, setBlocks }) => {
   };
 
   return (
-    <div className="canvas-column">
-      <h2>
-        <button onClick={handleRun}>Run</button>
-        Examples:
-        <select className="choose-example" value={selectedExample} onChange={handleExampleChange}>
-          <option value="">Choose Example</option>
-          <option value="triangle">Triangle</option>
-          <option value="tiny_circle">Tiny Circle</option>
-          <option value="spiral">Spiral</option>
-        </select>
-      </h2>
-      <div className="canvas-placeholder"></div>
-      <canvas ref={canvasRef} className="canvas"></canvas>
-    </div>
+    <CanvasContainer elevation={3}>
+      <CanvasHeader>
+        <Typography 
+          variant="h6" 
+          component="h2" 
+          sx={{ 
+            fontWeight: 600,
+            color: 'success.main'
+          }}
+        >
+          Canvas
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Button 
+            variant="contained" 
+            color="success"
+            startIcon={<PlayArrow />}
+            onClick={handleRun}
+          >
+            Run
+          </Button>
+          <FormControl size="small" sx={{ minWidth: 150 }}>
+            <InputLabel>Examples</InputLabel>
+            <Select
+              value={selectedExample}
+              label="Examples"
+              onChange={handleExampleChange}
+            >
+              <MenuItem value="">
+                <em>Choose Example</em>
+              </MenuItem>
+              <MenuItem value="triangle">Triangle</MenuItem>
+              <MenuItem value="tiny_circle">Tiny Circle</MenuItem>
+              <MenuItem value="spiral">Spiral</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </CanvasHeader>
+      <CanvasPlaceholder ref={canvasPlaceholderRef}>
+        <StyledCanvas ref={canvasRef} />
+      </CanvasPlaceholder>
+    </CanvasContainer>
   );
 };
 
