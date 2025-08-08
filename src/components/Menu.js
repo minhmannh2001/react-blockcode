@@ -13,7 +13,7 @@ const MenuContainer = styled(Paper)(({ theme, isDragOver }) => ({
 }));
 
 const MenuContent = styled(Box)(({ theme }) => ({
-  height: 'calc(100% - 60px)',
+  height: 'calc(100% - 100px)',
   overflowY: 'auto',
   padding: theme.spacing(1),
   '&::-webkit-scrollbar': {
@@ -47,11 +47,16 @@ const Menu = ({ onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onDra
     onDrop(e, 'menu', null);
   };
 
+  const handleDragOver = (e) => {
+    setIsDragOver(true)
+    onDragOver(e);
+  }
+
   return (
     <MenuContainer
       elevation={3}
       isDragOver={isDragOver}
-      onDragOver={onDragOver}
+      onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -78,7 +83,7 @@ const Menu = ({ onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onDra
             block={block}
             onDragStart={(e) => onDragStart(e, block, 'menu')}
             onDragEnter={onDragEnter}
-            onDrop={onDrop}
+            onDrop={handleDrop}
             variant="menu"
           />
         ))}

@@ -6,7 +6,7 @@ import { DragIndicator } from '@mui/icons-material';
 const BlockContainer = styled(Paper)(({ theme, variant, isDragging, isRunning, isNext }) => {
   let backgroundColor = '#ff7043'; // Default orange
   let borderColor = theme.palette.primary.main;
-  
+
   if (variant === 'menu') {
     backgroundColor = '#ff7043'; // Orange for menu blocks
   } else if (variant === 'script') {
@@ -38,14 +38,14 @@ const ContainerBox = styled(Box)(({ theme, variant }) => ({
   marginTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
   border: `1px solid ${theme.palette.divider}`,
-  borderRadius: theme.shape.borderRadius,
   borderRight: 0,
   backgroundColor: variant === 'menu' ? alpha('#fff3e0', 0.5) : alpha('#e3f2fd', 0.5),
   borderRadius: '7px 0 0 7px',
 }));
 
-const Block = ({ block, onDragStart, onDragEnter, onDragOver, onDrop, variant = 'default' }) => {
+const Block = ({ block, onDragStart, onDragEnter, onDragOver, onDrop, variant = 'default', onUpdateBlockValue }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [currentValue, setCurrentValue] = useState(block.value);
 
   const handleDragStart = (e) => {
     setIsDragging(true);
@@ -59,6 +59,18 @@ const Block = ({ block, onDragStart, onDragEnter, onDragOver, onDrop, variant = 
   const handleDrop = (e) => {
     e.stopPropagation();
     onDrop(e, 'block', block);
+  };
+
+  const handleValueChange = (e) => {
+    const newValue = parseInt(e.target.value) || 0;
+    setCurrentValue(newValue);
+    // Update the block's value immediately
+    block.value = newValue;
+    
+    // For script blocks, notify the parent to trigger a re-render
+    if (variant === 'script' && onUpdateBlockValue && block.id) {
+      onUpdateBlockValue(block.id, newValue);
+    }
   };
 
   const isRunning = block.className && block.className.includes('running');
@@ -79,22 +91,22 @@ const Block = ({ block, onDragStart, onDragEnter, onDragOver, onDrop, variant = 
       onDrop={handleDrop}
     >
       <DragIndicator fontSize="small" sx={{ color: 'rgba(255,255,255,0.7)' }} />
-      <Typography 
-        variant="body2" 
-        sx={{ 
-          color: 'white', 
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'white',
           fontWeight: 500,
           flexGrow: 1
         }}
       >
         {block.name}
-        {typeof block.contents === 'string' && ` ${block.contents}`}
       </Typography>
-      
+
       {block.value !== undefined && (
         <TextField
           type="number"
-          defaultValue={block.value}
+          value={currentValue || ''}
+          onChange={handleValueChange}
           size="small"
           variant="outlined"
           sx={{
@@ -111,7 +123,20 @@ const Block = ({ block, onDragStart, onDragEnter, onDragOver, onDrop, variant = 
           onClick={(e) => e.stopPropagation()}
         />
       )}
-      
+
+      {block.value !== undefined && (
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'white',
+            fontWeight: 500,
+            flexGrow: 1
+          }}
+        >
+          {typeof block.contents === 'string' && ` ${block.contents}`}
+        </Typography>
+      )}
+
       {Array.isArray(block.contents) && (
         <ContainerBox variant={variant}>
           {block.contents.map((childBlock) => (
@@ -125,6 +150,7 @@ const Block = ({ block, onDragStart, onDragEnter, onDragOver, onDrop, variant = 
               onDragOver={onDragOver}
               onDrop={onDrop}
               variant={variant}
+              onUpdateBlockValue={onUpdateBlockValue}
             />
           ))}
         </ContainerBox>

@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
-import { Paper, Typography, Box, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Paper, Typography, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { PlayArrow } from '@mui/icons-material';
 import Turtle from '../turtle';
 
 const CanvasContainer = styled(Paper)(({ theme }) => ({
@@ -26,6 +25,7 @@ const CanvasPlaceholder = styled(Box)({
   flexGrow: 1,
   position: 'relative',
   overflow: 'hidden',
+  width: '100%',
 });
 
 const StyledCanvas = styled('canvas')({
@@ -120,13 +120,6 @@ const Canvas = ({ blocks, setBlocks }) => {
     }
   }, [blocks]);
 
-  const handleRun = () => {
-    const turtle = turtleRef.current;
-    turtle.clear();
-    runBlocks(blocks);
-    turtle.drawTurtle()
-  };
-
   const handleExampleChange = (event) => {
     setSelectedExample(event.target.value);
     if (event.target.value !== '') {
@@ -135,25 +128,25 @@ const Canvas = ({ blocks, setBlocks }) => {
         case 'spiral':
           exampleBlocks = [
             { name: 'repeat', value: 10, contents: [
-              { name: 'left', value: 5 },
+              { name: 'left', value: 5, contents: 'degrees' },
               { name: 'repeat', value: 10, contents: [
-                { name: 'forward', value: 10 },
-                { name: 'left', value: 14 }
+                { name: 'forward', value: 10, contents: 'steps' },
+                { name: 'left', value: 14, contents: 'degrees' }
               ]},
               { name: 'repeat', value: 10, contents: [
-                { name: 'right', value: 5 },
+                { name: 'right', value: 5, contents: 'degrees' },
                 { name: 'repeat', value: 17, contents: [
-                  { name: 'forward', value: 13 },
-                  { name: 'left', value: 3 }
+                  { name: 'forward', value: 13, contents: 'steps' },
+                  { name: 'left', value: 3, contents: 'degrees' }
                 ]},
                 { name: 'back to center' },
-                { name: 'right', value: 3 },
+                { name: 'right', value: 3, contents: 'degrees' },
                 { name: 'repeat', value: 11, contents: [
                   { name: 'pen up' },
-                  { name: 'forward', value: 29 },
+                  { name: 'forward', value: 29, contents: 'steps' },
                   { name: 'pen down' },
-                  { name: 'right', value: 4 },
-                  { name: 'forward', value: -24 }
+                  { name: 'right', value: 4, contents: 'degrees' },
+                  { name: 'forward', value: -24, contents: 'steps' }
                 ]}
               ]}
             ]}
@@ -162,16 +155,16 @@ const Canvas = ({ blocks, setBlocks }) => {
         case 'tiny_circle':
           exampleBlocks = [
             { name: 'repeat', value: 10, contents: [
-              { name: 'right', value: 36 },
-              { name: 'forward', value: 10 }
+              { name: 'right', value: 36, contents: 'degrees' },
+              { name: 'forward', value: 10, contents: 'steps' }
             ]}
           ];
           break;
         case 'triangle':
           exampleBlocks = [
             { name: 'repeat', value: 3, contents: [
-              { name: 'left', value: 120 },
-              { name: 'forward', value: 75 }
+              { name: 'left', value: 120, contents: 'degrees' },
+              { name: 'forward', value: 75, contents: 'steps' }
             ]}
           ];
           break;
@@ -196,14 +189,6 @@ const Canvas = ({ blocks, setBlocks }) => {
           Canvas
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-          <Button 
-            variant="contained" 
-            color="success"
-            startIcon={<PlayArrow />}
-            onClick={handleRun}
-          >
-            Run
-          </Button>
           <FormControl size="small" sx={{ minWidth: 150 }}>
             <InputLabel>Examples</InputLabel>
             <Select
@@ -211,9 +196,6 @@ const Canvas = ({ blocks, setBlocks }) => {
               label="Examples"
               onChange={handleExampleChange}
             >
-              <MenuItem value="">
-                <em>Choose Example</em>
-              </MenuItem>
               <MenuItem value="triangle">Triangle</MenuItem>
               <MenuItem value="tiny_circle">Tiny Circle</MenuItem>
               <MenuItem value="spiral">Spiral</MenuItem>

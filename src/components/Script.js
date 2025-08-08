@@ -56,7 +56,7 @@ const EmptyScriptMessage = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onDragEnd, onClear }) => {
+const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDragOver, onDrop, onClear, onUpdateBlockValue }) => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
   const [fileName, setFileName] = useState('blockcode.json');
@@ -134,7 +134,6 @@ const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDr
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onDragEnd={onDragEnd}
       >
         <ScriptHeader>
           <Typography 
@@ -150,6 +149,7 @@ const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDr
           <ButtonGroup size="small" variant="outlined">
             <Button 
               onClick={onClear}
+              disabled={!blocks || blocks.length === 0}
               startIcon={<Clear />}
               color="error"
             >
@@ -183,6 +183,7 @@ const Script = ({ blocks, setBlocks, onDragStart, onDragEnter, onDragLeave, onDr
                 onDragOver={onDragOver}
                 onDrop={onDrop}
                 variant="script"
+                onUpdateBlockValue={onUpdateBlockValue}
               />
             ))
           ) : (

@@ -37,11 +37,6 @@ const useDragAndDrop = () => {
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    if (dragType === 'menu') {
-      e.dataTransfer.dropEffect = 'copy';  // See the section on the DataTransfer object.
-    } else {
-      e.dataTransfer.dropEffect = 'move';
-    }
   };
 
   const handleDrop = (e, dropZoneType, dropTarget) => {
@@ -129,15 +124,23 @@ const useDragAndDrop = () => {
     return null;
   };
 
-  const handleDragEnd = (e) => {
-    // Remove 'dragging' and 'over' classes from any elements that have them
-    const draggingElem = document.querySelector('.dragging');
-    if (draggingElem) draggingElem.classList.remove('dragging');
-    const overElem = document.querySelector('.over');
-    if (overElem) overElem.classList.remove('over');
-  };
-
   const clearScript = () => setScriptBlocks([]);
+
+  const updateBlockValue = (blockId, newValue) => {
+    const updateBlockInArray = (blocks) => {
+      return blocks.map(block => {
+        if (block.id === blockId) {
+          return { ...block, value: newValue };
+        }
+        if (Array.isArray(block.contents)) {
+          return { ...block, contents: updateBlockInArray(block.contents) };
+        }
+        return block;
+      });
+    };
+    
+    setScriptBlocks(prevBlocks => updateBlockInArray(prevBlocks));
+  };
 
   return {
     dragTarget,
@@ -149,8 +152,8 @@ const useDragAndDrop = () => {
     handleDragLeave,
     handleDragOver,
     handleDrop,
-    handleDragEnd,
     clearScript,
+    updateBlockValue,
   };
 };
 

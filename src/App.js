@@ -34,8 +34,8 @@ function App() {
     handleDragLeave,
     handleDragOver,
     handleDrop,
-    handleDragEnd,
     clearScript,
+    updateBlockValue,
   } = useDragAndDrop();
 
   return (
@@ -48,19 +48,18 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Container maxWidth={false} sx={{ mt: 2, height: 'calc(100vh - 80px)' }}>
+      <Container maxWidth={false} sx={{ mt: 2, height: 'calc(100vh - 100px)' }}>
         <Grid container spacing={2} sx={{ height: '100%' }}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={3} sx={{ minWidth: '300px', flexShrink: 0 }}>
             <Menu
               onDragStart={handleDragStart}
               onDragEnter={handleDragEnter}
               onDragLeave={handleDragLeave}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
-              onDragEnd={handleDragEnd}
             />
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={3} sx={{ minWidth: '300px', flexShrink: 0 }}>
             <Script
               blocks={scriptBlocks}
               setBlocks={setScriptBlocks}
@@ -69,11 +68,11 @@ function App() {
               onDragLeave={handleDragLeave}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
-              onDragEnd={handleDragEnd}
               onClear={clearScript}
+              onUpdateBlockValue={updateBlockValue}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md sx={{ flexGrow: 1 }}>
             <Canvas blocks={scriptBlocks} setBlocks={setScriptBlocks} />
           </Grid>
         </Grid>
