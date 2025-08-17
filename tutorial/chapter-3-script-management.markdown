@@ -1,6 +1,6 @@
 # Chapter 3: Script Management
 
-Welcome back! In [Chapter 1: Block Definition & Component](01_block_definition___component_.md), we learned how to create our visual "LEGO bricks," and in [Chapter 2: Drag and Drop System](02_drag_and_drop_system_.md), we mastered the art of picking up and snapping those bricks together to build a program. You can now build amazing sequences of actions!
+Welcome back! In [Chapter 1: Block Definition & Component](./chapter-1-block-definition&component.markdown), we learned how to create our visual "LEGO bricks," and in [Chapter 2: Drag and Drop System](./chapter-2-drag-and-drop-system.markdown), we mastered the art of picking up and snapping those bricks together to build a program. You can now build amazing sequences of actions!
 
 But imagine you've just spent an hour building an incredible LEGO castle. What happens if you need to clear the table for dinner? Or what if you want to show your castle to a friend later? You wouldn't want to lose all your hard work, right?
 
@@ -275,4 +275,4 @@ In this chapter, you've learned how **Script Management** is vital for making yo
 *   `Save` uses `scriptToJson` (from `src/utils/file.js`) to convert your block structure into a savable JSON text format.
 *   `Load` uses `jsonToScript` (also from `src/utils/file.js`) to parse a JSON file back into your `scriptBlocks` array, restoring your program.
 
-These features transform `react-blockcode` from a temporary canvas into a powerful tool for creating, storing, and sharing your visual code. With your program now built and manageable, the next exciting step is to make it actually *do* something! In [Chapter 4: Turtle Graphics Engine](04_turtle_graphics_engine_.md), we'll explore how our blocks translate into actions on the screen, drawing shapes and lines!
+These features transform `react-blockcode` from a temporary canvas into a powerful tool for creating, storing, and sharing your visual code. With your program now built and manageable, the next exciting step is to make it actually *do* something! In [Chapter 4: Turtle Graphics Engine](./chapter-4-turtle-graphics-engine.markdown), we'll explore how our blocks translate into actions on the screen, drawing shapes and lines!

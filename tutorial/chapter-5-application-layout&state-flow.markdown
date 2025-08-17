@@ -1,10 +1,10 @@
 # Chapter 5: Application Layout & State Flow
 
 Welcome back to the `react-blockcode` tutorial! In our previous chapters, you've learned a lot:
-*   In [Chapter 1: Block Definition & Component](01_block_definition___component_.md), we built our individual "LEGO bricks."
-*   In [Chapter 2: Drag and Drop System](02_drag_and_drop_system_.md), we learned how to pick them up and snap them together.
-*   In [Chapter 3: Script Management](03_script_management.md), we discovered how to save and load our "LEGO creations" (our programs).
-*   And in [Chapter 4: Turtle Graphics Engine](04_turtle_graphics_engine_.md), we saw how our assembled blocks can draw amazing things on the screen!
+*   In [Chapter 1: Block Definition & Component](./chapter-1-block-definition&component.markdown), we built our individual "LEGO bricks."
+*   In [Chapter 2: Drag and Drop System](./chapter-2-drag-and-drop-system.markdown), we learned how to pick them up and snap them together.
+*   In [Chapter 3: Script Management](./chapter-3-script-management.markdown), we discovered how to save and load our "LEGO creations" (our programs).
+*   And in [Chapter 4: Turtle Graphics Engine](./chapter-4-turtle-graphics-engine.markdown), we saw how our assembled blocks can draw amazing things on the screen!
 
 Now, think about your desk or workbench. You have a box for your LEGO bricks, a clear space to build your model, and maybe a separate area where you can test out your remote-controlled LEGO robot. All these areas are separate but work together, right?
 

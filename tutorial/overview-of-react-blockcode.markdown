@@ -28,12 +28,12 @@ flowchart TD
 ## Chapters
 
 1. [Block Definition & Component
-](01_block_definition___component_.md)
+](./chapter-1-block-definition&component.markdown)
 2. [Drag and Drop System
-](02_drag_and_drop_system_.md)
+](./chapter-2-drag-and-drop-system.markdown)
 3. [Script Management
-](03_script_management_.md)
+](./chapter-3-script-management.markdown)
 4. [Turtle Graphics Engine
-](04_turtle_graphics_engine_.md)
+](./chapter-4-turtle-graphics-engine.markdown)
 5. [Application Layout & State Flow
-](05_application_layout___state_flow_.md)
+](./chapter-5-application-layout&state-flow.markdown)

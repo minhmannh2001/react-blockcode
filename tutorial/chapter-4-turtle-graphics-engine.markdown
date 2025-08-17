@@ -1,6 +1,6 @@
 # Chapter 4: Turtle Graphics Engine
 
-Welcome back! In [Chapter 1: Block Definition & Component](01_block_definition___component_.md), you learned how we define and display our visual programming blocks. Then, in [Chapter 2: Drag and Drop System](02_drag_and_drop_system_.md), you mastered how to arrange these blocks to build a "script." And in [Chapter 3: Script Management](03_script_management.md), we explored how to save and load your creations.
+Welcome back! In [Chapter 1: Block Definition & Component](./chapter-1-block-definition&component.markdown), you learned how we define and display our visual programming blocks. Then, in [Chapter 2: Drag and Drop System](./chapter-2-drag-and-drop-system.markdown), you mastered how to arrange these blocks to build a "script." And in [Chapter 3: Script Management](./chapter-3-script-management.markdown), we explored how to save and load your creations.
 
 Now that you can build and manage your block-based programs, there's one big question left: how do these blocks actually *do* anything? If you have a block that says "forward 10 steps," what makes a line appear on the screen? This is where the **Turtle Graphics Engine** comes in!
 
@@ -245,4 +245,4 @@ You've now uncovered the "magic" behind how your `react-blockcode` programs draw
 *   The `Canvas` component (`src/components/Canvas.js`) acts as the display and the interpreter, taking your blocks and translating them into actions.
 *   The `Turtle` class (`src/turtle.js`) is the virtual artist, handling its own position, direction, and pen, and using the HTML Canvas API to perform the actual drawing.
 
-This system allows you to create visual masterpieces simply by dragging and dropping blocks. You now understand all the core components of `react-blockcode`! But how do all these pieces fit together into a single, cohesive application layout? That's exactly what we'll explore in [Chapter 5: Application Layout & State Flow](05_application_layout___state_flow_.md).
+This system allows you to create visual masterpieces simply by dragging and dropping blocks. You now understand all the core components of `react-blockcode`! But how do all these pieces fit together into a single, cohesive application layout? That's exactly what we'll explore in [Chapter 5: Application Layout & State Flow](./chapter-5-application-layout&state-flow.markdown).

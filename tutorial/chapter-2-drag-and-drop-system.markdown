@@ -1,6 +1,6 @@
 # Chapter 2: Drag and Drop System
 
-Welcome back to the `react-blockcode` tutorial! In the [previous chapter](01_block_definition___component_.md), we learned how our "blocks" are defined as recipes and then visually drawn on the screen as interactive components. You now know what a `forward` block looks like and how it's built. But how do we actually *use* these beautiful blocks to create a program?
+Welcome back to the `react-blockcode` tutorial! In the [previous chapter](./chapter-1-block-definition&component.markdown), we learned how our "blocks" are defined as recipes and then visually drawn on the screen as interactive components. You now know what a `forward` block looks like and how it's built. But how do we actually *use* these beautiful blocks to create a program?
 
 Imagine you have a box of LEGO bricks. Knowing what each brick is (its definition) and seeing them laid out (the component) is great, but to build something, you need to be able to pick them up, move them around, and snap them together. This is exactly what the **Drag and Drop System** allows us to do in `react-blockcode`.
 
@@ -338,4 +338,4 @@ The Drag and Drop System is the engine that brings `react-blockcode` to life as 
 *   Determining where it's dropped (`dropZoneType`, `dropTarget`).
 *   Correctly updating the central list of `scriptBlocks` to reflect additions, rearrangements, and deletions.
 
-This system allows you to intuitively build and modify your visual programs simply by moving blocks with your mouse. Now that we understand how blocks are defined, displayed, and moved, the next logical step is to dive deeper into how our program (`scriptBlocks`) is structured and how we manage it more broadly. That's what we'll explore in [Chapter 3: Script Management](03_script_management.md).
+This system allows you to intuitively build and modify your visual programs simply by moving blocks with your mouse. Now that we understand how blocks are defined, displayed, and moved, the next logical step is to dive deeper into how our program (`scriptBlocks`) is structured and how we manage it more broadly. That's what we'll explore in [Chapter 3: Script Management](./chapter-3-script-management.markdown).
